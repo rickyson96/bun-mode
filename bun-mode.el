@@ -34,11 +34,12 @@
   (when (looking-at-p "#!/usr/bin/env bun")
 	(let* ((bun-cmd (format "bun %s" (shell-quote-argument (buffer-file-name))))
 		   (content (shell-command-to-string bun-cmd)))
+	  (setq buffer-read-only nil)
 	  (erase-buffer)
 	  (insert content)))
-  (setq font-lock-defaults '(yarn-mode-font-lock-defaults))
   (setq buffer-read-only t)
-  (set-buffer-modified-p nil))
+  (set-buffer-modified-p nil)
+  (view-mode))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("bun\\.lockb\\'" . bun-mode))
